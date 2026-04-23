@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title translate="no">A Little Match Girl!</title>
+    <link rel="stylesheet" href="./match.css" />
+  </head>
+
+  <body>
+    <!-- Screen Reader Message -->
+    <p class="sr-only">This game is not compatible with screen readers.</p>
+    <!-- Game Root -->
+    <div id="game-root" aria-hidden="true">
+      <!-- Game Flow -->
+      <div class="introduction game-screen">
+        <!-- Title Screen -->
+        <img
+          id="picture-a-little-match-girl"
+          src="common/a-little-match-girl.webp"
+          alt=""
+        />
+
+        <!-- Audio Mode Selection -->
+        <div class="introduction__audio-mode">
+          <img id="picture-play-audio" src="common/play-audio.webp" alt="" />
+          <div class="audio-button-section introduction__center-buttons">
+            <button
+              class="play-audio-button button-large"
+              translate="no"
+              tabindex="-1"
+            >
+              Play Audio
+            </button>
+            <button
+              class="mute-mode-button button-large"
+              translate="no"
+              tabindex="-1"
+            >
+              Mute Mode
+            </button>
+            <div class="link-container">
+              <a
+                href="https://t-yamamoto0703.github.io/this-game-is-silent/"
+                target="_self"
+                rel="noreferrer"
+                tabindex="-1"
+              >
+                This game is silent. </a
+              ><br />
+              <a
+                href="https://t-yamamoto0703.github.io/y-a-g-n-i/"
+                target="_self"
+                rel="noreferrer"
+                tabindex="-1"
+              >
+                Y-A-G-N-I </a
+              ><br />
+              <a
+                href="https://github.com/t-yamamoto0703/this-game-is-silent.git"
+                target="_blank"
+                rel="noreferrer"
+                tabindex="-1"
+                >View Source on GitHub (open in new tab)
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Language Selection -->
+        <div class="introduction__language-select" hidden="true">
+          <img
+            id="picture-select-language"
+            src="common/select-language.webp"
+            alt=""
+          />
+          <div class="language-button-section introduction__center-buttons">
+            <button class="english-button button-large" translate="no">
+              English
+            </button>
+            <button class="japanese-button button-large" translate="no">
+              日本語
+            </button>
+          </div>
+        </div>
+
+        <!-- Prologue -->
+        <div class="introduction__prologue" hidden="true">
+          <img
+            id="picture-english-prologue"
+            src="common/english-prologue.webp"
+            alt=""
+            hidden="true"
+          />
+          <img
+            id="picture-japanese-prologue"
+            src="common/japanese-prologue.webp"
+            alt=""
+            hidden="true"
+          />
+          <div
+            class="prologue-next-button-section introduction__center-buttons"
+          >
+            <button class="prologue-next-button button-large" translate="no">
+              Next
+            </button>
+          </div>
+        </div>
+
+        <!-- Match Selection -->
+        <div class="introduction__match-select" hidden="true">
+          <img
+            id="picture-select-match"
+            src="common/select-match.webp"
+            alt=""
+          />
+          <img
+            id="picture-select-match-japanese"
+            src="common/select-match-japanese.webp"
+            alt=""
+            hidden="true"
+          />
+          <div class="select-match-button introduction__center-buttons">
+            <button class="match-ignorant-button button-large" translate="no">
+              Match of Darkness
+            </button>
+            <button class="match-unjust-button button-large" translate="no">
+              Match of Crimson
+            </button>
+            <button class="match-arrogant-button button-large" translate="no">
+              Match of Stardust
+            </button>
+          </div>
+        </div>
+
+        <!-- Story Mode -->
+        <div class="introduction__story" hidden="true">
+          <div id="story-text-area">
+            <div class="sentence-line" translate="no"></div>
+            <div class="sentence-line" translate="no"></div>
+            <div class="sentence-line" translate="no"></div>
+            <div class="sentence-line" translate="no"></div>
+            <div class="sentence-line" translate="no"></div>
+            <div class="sentence-line" translate="no"></div>
+            <div class="sentence-line" translate="no"></div>
+            <div class="sentence-line" translate="no"></div>
+          </div>
+          <div class="story-next-button-section">
+            <button id="story-next-button" class="button-large" translate="no">
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- End Of Game Flow -->
+
+      <!-- Ignorant Battle Mode -->
+      <div class="ignorant-layer game-screen" hidden="true">
+        <div id="damage-screen-ignorant"></div>
+        <div class="card-area-ignorant">
+          <div class="card-index-ignorant">
+            <!-- JSによりカード番号生成 ベタ書きの方が速い-->
+          </div>
+          <div class="answer-cards-ignorant">
+            <!-- JSによりカード13枚生成 ベタ書きの方が速い-->
+          </div>
+        </div>
+        <div class="ui-row">
+          <div id="result-section-ignorant" hidden="true">
+            <div id="result-text-ignorant"></div>
+            <button id="battle-next-button-ignorant" class="button-medium">
+              NEXT
+            </button>
+          </div>
+          <div class="ui-row__first">
+            <button class="start-button-ignorant button-medium">Start</button>
+            <button class="reset-button-ignorant button-medium" disabled>
+              Reset
+            </button>
+            <div class="status-indicator">
+              <img id="my-life-ignorant" src="common/blue-turn.png" alt="" />
+              <div class="status-indicator-value" id="my-life-ignorant-value">
+                99999
+              </div>
+            </div>
+          </div>
+          <div id="ui-row__second">
+            <img id="ignorant-img" src="ignorant/ignorant.webp" />
+          </div>
+          <div class="ui-row__third">
+            <div>Perfect:</div>
+            <div>combo:</div>
+            <div>avg.</div>
+            <div>Time</div>
+          </div>
+          <div class="ui-row__fourth">
+            <div id="perfect-ignorant">0</div>
+            <div id="combo-ignorant">0</div>
+            <div id="average-time-ignorant">00.00sec</div>
+            <div id="time-count-ignorant">00.00sec</div>
+          </div>
+          <div class="ui-row__fifth">
+            <div class="status-indicator">
+              <img id="com-life-ignorant" src="common/red-turn.png" alt="" />
+              <div class="status-indicator-value" id="com-life-ignorant-value">
+                99999
+              </div>
+            </div>
+            <div class="previous-time-ignorant">00.00sec</div>
+            <div class="previous-time-ignorant">00.00sec</div>
+            <div class="previous-time-ignorant">00.00sec</div>
+            <div class="previous-time-ignorant">00.00sec</div>
+            <div class="status-indicator">
+              <img
+                id="total-count-ignorant"
+                src="common/green-turn.png"
+                alt=""
+              />
+              <div
+                class="status-indicator-value"
+                id="total-count-ignorant-value"
+              >
+                0
+              </div>
+            </div>
+          </div>
+          <div class="status-indicator"></div>
+        </div>
+        <div class="my-answered-cards">
+          <!-- JSによりカード13枚生成 ベタ書きの方が速い-->
+        </div>
+        <div class="my-answer-cards">
+          <!-- JSによりカード13枚生成 ベタ書きの方が速い-->
+        </div>
+      </div>
+      <!-- End of Ignorant battle mode -->
+
+      <!-- Unjust battle mode -->
+      <div class="unjust-layer game-screen" hidden="true">
+        <div id="damage-screen-unjust"></div>
+        <div id="card-index-unjust1">
+          <!-- JSによりカード番号生成 ベタ書きの方が速い-->
+        </div>
+        <div id="com-cards-container-unjust" class="com-cards-unjust">
+          <!-- JSによりカード52枚生成 ベタ書きの方が速い-->
+        </div>
+        <div class="ui-row">
+          <div id="ui-row__first">
+            <button class="start-button-unjust button-medium">Start</button>
+            <button class="open-button-unjust button-medium" disabled>
+              Open</button
+            ><br />
+            <button class="reset-button-unjust button-medium" disabled>
+              Reset</button
+            ><br />
+            <div class="status-indicator">
+              <img id="my-life-unjust-img" src="common/blue-turn.png" alt="" />
+              <div class="status-indicator-value" id="my-life-unjust-value">
+                0
+              </div>
+            </div>
+          </div>
+          <div class="ui-row__second">
+            <img id="unjust-img" src="unjust/unjust.webp" alt="" />
+          </div>
+          <div class="ui-row__third"></div>
+          <div class="ui-row__fourth">
+            <p>PerfectHit:</p>
+            <p>SerialHit:</p>
+            <p>Time:</p>
+          </div>
+          <div class="ui-row__fifth">
+            <div id="result-section-unjust" hidden="true">
+              <div id="result-text-unjust"></div>
+              <button id="battle-next-button-unjust" class="button-medium">
+                NEXT
+              </button>
+            </div>
+            <div class="status-indicator">
+              <img id="com-life-unjust-img" src="common/red-turn.png" alt="" />
+              <div class="status-indicator-value" id="com-life-unjust-value">
+                0
+              </div>
+            </div>
+            <p id="perfect-hit-unjust">0</p>
+            <p id="serial-hit-unjust">0</p>
+            <p id="time-count-unjust">000.00sec</p>
+            <div class="status-indicator">
+              <img id="total-count-unjust" src="common/green-turn.png" alt="" />
+              <div class="status-indicator-value" id="total-count-unjust-value">
+                0
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="my-cards-container-unjust" class="my-cards-unjust">
+          <!-- JSによりカード52枚生成 ベタ書きの方が速い-->
+        </div>
+        <div id="card-index-unjust2">
+          <!-- JSによりカード番号生成 ベタ書きの方が速い-->
+        </div>
+      </div>
+      <!-- End of Unjust battle mode -->
+
+      <!-- Arrogant battle mode -->
+      <div class="arrogant-layer game-screen" hidden="true">
+        <div id="damage-screen-arrogant"></div>
+        <div id="card-index-arrogant">
+          <!-- JSによりカード番号生成 ベタ書きの方が速い-->
+        </div>
+        <div class="year">
+          <img class="year-card-question" src="common/red.png" alt="" />
+          <img class="year-card-question" src="common/red.png" alt="" />
+          <img class="year-card-question" src="common/red.png" alt="" />
+          <img class="year-card-question" src="common/red.png" alt="" />
+          <img class="year-card-question" src="common/red.png" alt="" />
+          <img class="year-card-question" src="common/red.png" alt="" />
+          <img class="year-card-question" src="common/red.png" alt="" />
+          <img class="year-card-question" src="common/red.png" alt="" />
+          <img class="year-card-question" src="common/red.png" alt="" />
+          <img class="year-card-question" src="common/red.png" alt="" />
+          <img class="year-card-question" src="common/red.png" alt="" />
+          <img class="year-card-question" src="common/red.png" alt="" />
+          <img src="arrogant/y.png" alt="" />
+        </div>
+        <div class="month">
+          <img src="arrogant/a.png" alt="" />
+          <img src="common/red.png" class="day-card-correct-answer" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" class="month-card-question" />
+          <img src="common/red.png" alt="" class="month-card-question" />
+          <img src="arrogant/m.png" alt="" />
+        </div>
+        <div class="date">
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" />
+          <img src="common/red.png" alt="" class="date-card-question" />
+          <img src="common/red.png" alt="" class="date-card-question" />
+          <img src="arrogant/d.png" alt="" />
+        </div>
+        <div class="ui-row">
+          <div id="result-section-arrogant" hidden="true">
+            <div id="result-text-arrogant"></div>
+            <button id="battle-next-button-arrogant" class="button-medium">
+              NEXT
+            </button>
+          </div>
+
+          <div class="ui-row__first">
+            <div id="adjuster-buttons-section">
+              <div id="month-adjust-button-section">
+                <div class="month-adjust-button-label">Month<br />Adjust</div>
+                <button class="month-adjust-button button-small">+3</button>
+                <button class="month-adjust-button button-small">+2</button>
+                <button class="month-adjust-button button-small">+1</button>
+                <button
+                  class="month-adjust-button button-small"
+                  id="default-adjust-position"
+                >
+                  0
+                </button>
+                <button class="month-adjust-button button-small">-1</button>
+                <button class="month-adjust-button button-small">-2</button>
+                <button class="month-adjust-button button-small">-3</button>
+              </div>
+              <div id="answer-reveal-delay-buttons-section" hidden="true">
+                <div id="answer-reveal-delay-button-label">
+                  Answer<br />ShowTime
+                </div>
+                <button class="answer-reveal-delay-button button-small">
+                  10sec
+                </button>
+                <button class="answer-reveal-delay-button button-small">
+                  5sec
+                </button>
+                <button class="answer-reveal-delay-button button-small">
+                  3sec
+                </button>
+                <button class="answer-reveal-delay-button button-small">
+                  1sec
+                </button>
+                <button class="answer-reveal-delay-button button-small">
+                  0.5sec
+                </button>
+                <button class="answer-reveal-delay-button button-small">
+                  0.3sec
+                </button>
+                <button class="answer-reveal-delay-button button-small">
+                  0.1sec
+                </button>
+              </div>
+              <div class="status-indicator">
+                <img id="my-life-arrogant" src="common/blue-turn.png" alt="" />
+                <div
+                  class="status-indicator-value"
+                  id="my-life-arrogant-value"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div class="ui-row__second">
+            <img id="arrogant-img" src="arrogant/arrogant.webp" alt="" />
+          </div>
+          <div id="ui-row__third">
+            <p>PerfectHit:</p>
+            <p>SerialHit:</p>
+            <p>Time:</p>
+            <button class="start-button-arrogant button-medium">Start</button>
+          </div>
+          <div class="ui-row__fourth">
+            <p id="perfect-hit-arrogant">0</p>
+            <p id="serial-hit-arrogant">0</p>
+            <p id="time-count-arrogant">00.00sec</p>
+            <button class="reset-button-arrogant button-medium" disabled>
+              Reset
+            </button>
+          </div>
+          <div class="ui-row__fifth">
+            <div class="status-indicator">
+              <img
+                id="com-life-arrogant-img"
+                src="common/red-turn.png"
+                alt=""
+              />
+              <div
+                class="status-indicator-value"
+                id="com-life-arrogant-value"
+              ></div>
+            </div>
+            <p class="previous-time-arrogant">00.00sec</p>
+            <p class="previous-time-arrogant">00.00sec</p>
+            <p class="previous-time-arrogant">00.00sec</p>
+            <p class="previous-time-arrogant">00.00sec</p>
+            <div class="status-indicator">
+              <img
+                id="total-count-arrogant"
+                src="common/green-turn.png"
+                alt=""
+              />
+              <div
+                class="status-indicator-value"
+                id="total-count-arrogant-value"
+              ></div>
+            </div>
+          </div>
+        </div>
+        <div class="classAttackCentury">
+          <img src="common/blue.png" alt="" />
+          <img src="arrogant/century.png" alt="" />
+          <img src="common/blue.png" alt="" />
+          <img class="century-card-calculating" src="arrogant/0.png" alt="" />
+          <img class="century-card-calculating" src="arrogant/1.png" alt="" />
+          <img class="century-card-calculating" src="arrogant/2.png" alt="" />
+          <img class="century-card-calculating" src="arrogant/3.png" alt="" />
+          <img class="century-card-calculating" src="arrogant/4.png" alt="" />
+          <img class="century-card-calculating" src="arrogant/5.png" alt="" />
+          <img class="century-card-calculating" src="arrogant/6.png" alt="" />
+          <img src="common/blue.png" alt="" />
+          <img src="arrogant/century.png" alt="" />
+          <img src="common/blue.png" alt="" />
+        </div>
+        <div class="classAttackYear">
+          <img src="common/blue.png" alt="" />
+          <img src="arrogant/y.png" alt="" />
+          <img src="common/blue.png" alt="" />
+          <img class="year-card-calculating" src="arrogant/0.png" alt="" />
+          <img class="year-card-calculating" src="arrogant/1.png" alt="" />
+          <img class="year-card-calculating" src="arrogant/2.png" alt="" />
+          <img class="year-card-calculating" src="arrogant/3.png" alt="" />
+          <img class="year-card-calculating" src="arrogant/4.png" alt="" />
+          <img class="year-card-calculating" src="arrogant/5.png" alt="" />
+          <img class="year-card-calculating" src="arrogant/6.png" alt="" />
+          <img src="common/blue.png" alt="" />
+          <img src="arrogant/y.png" alt="" />
+          <img src="common/blue.png" alt="" />
+        </div>
+        <div class="classAttackMonth">
+          <img class="card-blue-back" src="common/blue.png" alt="" />
+          <img src="arrogant/m.png" alt="" />
+          <img class="card-blue-back" src="common/blue.png" alt="" />
+          <img class="month-card-calculating" src="arrogant/10.png" alt="" />
+          <img class="month-card-calculating" src="arrogant/11.png" alt="" />
+          <img class="month-card-calculating" src="arrogant/12.png" alt="" />
+          <img class="month-card-calculating" src="arrogant/13.png" alt="" />
+          <img class="month-card-calculating" src="arrogant/14.png" alt="" />
+          <img class="month-card-calculating" src="arrogant/15.png" alt="" />
+          <img class="month-card-calculating" src="arrogant/16.png" alt="" />
+          <img class="card-blue-back" src="common/blue.png" alt="" />
+          <img src="arrogant/m.png" alt="" />
+          <img class="card-blue-back" src="common/blue.png" alt="" />
+        </div>
+        <div class="classAttackDate">
+          <img class="card-blue-back" src="common/blue.png" alt="" />
+          <img src="arrogant/d.png" alt="" />
+          <img class="card-blue-back" src="common/blue.png" alt="" />
+          <img class="date-card-calculating" src="arrogant/20.png" alt="" />
+          <img class="date-card-calculating" src="arrogant/21.png" alt="" />
+          <img class="date-card-calculating" src="arrogant/22.png" alt="" />
+          <img class="date-card-calculating" src="arrogant/23.png" alt="" />
+          <img class="date-card-calculating" src="arrogant/24.png" alt="" />
+          <img class="date-card-calculating" src="arrogant/25.png" alt="" />
+          <img class="date-card-calculating" src="arrogant/26.png" alt="" />
+          <img class="card-blue-back" src="common/blue.png" alt="" />
+          <img src="arrogant/d.png" alt="" />
+          <img class="card-blue-back" src="common/blue.png" alt="" />
+        </div>
+        <div class="classAttackDay">
+          <img id="intercalary-card-calculating" src="common/blue.png" alt="" />
+          <img src="arrogant/a.png" alt="" />
+          <img class="card-blue-back" src="common/blue.png" alt="" />
+          <img class="day-card-calculating" src="arrogant/30.png" alt="" />
+          <img class="day-card-calculating" src="arrogant/31.png" alt="" />
+          <img class="day-card-calculating" src="arrogant/32.png" alt="" />
+          <img class="day-card-calculating" src="arrogant/33.png" alt="" />
+          <img class="day-card-calculating" src="arrogant/34.png" alt="" />
+          <img class="day-card-calculating" src="arrogant/35.png" alt="" />
+          <img class="day-card-calculating" src="arrogant/36.png" alt="" />
+          <img class="card-blue-back" src="common/blue.png" alt="" />
+          <img src="arrogant/a.png" alt="" />
+          <img class="card-blue-back" src="common/blue.png" alt="" />
+        </div>
+        <div class="week-day-index">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div>Sun</div>
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+          <div></div>
+        </div>
+        <div id="result-indicator-section-arrogant">
+          <div id="result-indicator"></div>
+        </div>
+      </div>
+      <img
+        id="time-is-up"
+        class="day-card-calculating"
+        src="common/dummy.png"
+        alt=""
+      />
+
+      <!-- End of Arrogant battle mode -->
+
+      <!-- Finish -->
+      <div class="finish-game game-screen" hidden="true">
+        <img
+          id="picture-game-clear"
+          src="common/picture-game-clear.webp"
+          alt=""
+          hidden="true"
+        />
+        <img
+          id="picture-game-over"
+          src="common/picture-game-over.webp"
+          alt=""
+          hidden="true"
+        />
+        <button
+          id="home-button"
+          class="button-large"
+          translate="no"
+          hidden="true"
+        >
+          Tap And Return!
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div id="modal-overlay" hidden="true"></div>
+    <!-- Reset Dialog -->
+    <div id="reset-dialog" hidden="true">
+      <p id="reset-dialog-message">Reset the battle?</p>
+      <button id="resume-battle-button" class="button-large">Resume</button>
+      <button id="restart-battle-button" class="button-large">Restart</button>
+      <button id="lose-button" class="button-large">Give up</button>
+      <button id="return-title-button" class="button-large">
+        Back to title
+      </button>
+    </div>
+
+    <script src="./match.js"></script>
+  </body>
+</html>
+<!-- End of HTML -->
+
+<!--
+<button class="other-games-button button-large" translate="no">Other Games</button>
+<div id="other-games-dialog" hidden="true">
+  <div id="other-games-dialog-message">
+    Choose the game<br />
+    or resume game.
+  </div>
+  <button id="game-a-button" class="button-large">This game is silent.</button>
+  <button id="game-b-button" class="button-large">Y-A-G-N-I</button>
+  <button id="resume-game-button" class="button-large">Close Dialog</button>
+</div>
+-->

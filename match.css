@@ -1,0 +1,594 @@
+@charset "utf-8";
+
+/* =========================
+   !important:
+   ========================= */
+
+[hidden] {
+  display: none !important;
+}
+
+/* =========================
+   Html Body Img:
+   ========================= */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overscroll-behavior: none; /* ドラッグ避け */
+  touch-action: manipulation; /* ダブルタップズーム無効 スクロールとピンチズームのみ許可 */
+  /* overflow: hidden; */
+}
+
+body {
+  background-color: #000000ff;
+  font-family:
+    "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo";
+  font-size: 16px;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =========================
+   Buttons:
+   ========================= */
+
+#game-root button,
+#reset-dialog button {
+  background-color: #00ff00ff;
+  border-style: none;
+  color: #000000ff;
+  border-radius: 8px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+#game-root button:disabled {
+  background-color: #808080ff;
+}
+
+.button-large {
+  width: min(300px, 90vw);
+  font-size: 30px;
+  height: 50px;
+  margin-bottom: 5px;
+}
+
+.button-medium {
+  width: 100px;
+  font-size: 24px;
+  padding: 4px 0;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.button-small {
+  width: 100px;
+  font-size: 12px;
+  padding: 2px 0;
+}
+
+.other-games-button {
+  margin-bottom: 20px;
+  height: 25px;
+  font-size: 18px;
+}
+
+.start-button-arrogant,
+.reset-button-arrogant {
+  width: 80px;
+}
+
+#home-button {
+  margin-top: 20px;
+}
+
+#reset-dialog button {
+  margin-bottom: 10px;
+}
+
+#reset-dialog button:hover {
+  opacity: 0.5;
+}
+
+/* =========================
+   SR Game-Root:
+   ========================= */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  overscroll-behavior: none;
+}
+
+#game-root {
+  color: #ffffffff;
+  position: relative;
+  text-align: center;
+  touch-action: manipulation;
+  height: 100vh;
+}
+
+/* =========================
+   Game Screen:
+   ========================= */
+
+.game-screen {
+  position: relative;
+  /* このmax-widthは必須 */
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+#modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #00000080;
+  z-index: 1999;
+  pointer-events: none;
+}
+
+/* =========================
+   Game Flow: sections
+   ========================= */
+
+/* ボタンの基準座標 */
+.introduction__audio-mode,
+.introduction__language-select,
+.introduction__match-select,
+.introduction__prologue,
+.introduction__story {
+  position: relative;
+}
+
+.introduction__story {
+  /* このmin-heightは必須 */
+  min-height: 720px;
+}
+
+.link-container {
+  max-width: 720px;
+  width: 100%;
+  background-color: #111111;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #333333;
+  margin: 30px;
+  padding: 10px;
+  text-align: center;
+}
+
+.link-container a {
+  display: inline-block;
+  color: #44aaff;
+  margin-bottom: 10px;
+}
+/* =========================
+   Game Flow: shared button layout
+   ========================= */
+
+/* 画面中央に縦並びボタンを置く */
+.introduction__center-buttons {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+/* audio/language/matchは同じ高さ */
+.introduction__audio-mode .introduction__center-buttons,
+.introduction__language-select .introduction__center-buttons,
+.introduction__match-select .introduction__center-buttons {
+  top: 30%;
+}
+
+/* prologueは下寄せ */
+.introduction__prologue .introduction__center-buttons {
+  top: 78%;
+}
+
+/* =========================
+   Game Flow: story layout
+   ========================= */
+
+#story-text-area {
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.sentence-line {
+  position: relative;
+  top: 50px;
+  margin-bottom: 24px;
+}
+
+/* storyのNextボタンは下寄せ */
+.story-next-button-section {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+#story-next-button {
+  position: relative;
+}
+
+/* =========================
+   Battle Mode: Common
+   ========================= */
+
+#damage-screen-ignorant,
+#damage-screen-unjust,
+#damage-screen-arrogant {
+  max-width: 720px;
+  position: absolute;
+  inset: 0;
+  background-color: #e0e0e0ff;
+  opacity: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#damage-screen-ignorant.damageFlash,
+#damage-screen-unjust.damageFlash,
+#damage-screen-arrogant.damageFlash {
+  animation: damageFlash 0.3s ease-out;
+}
+
+@keyframes damageFlash {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* =========================
+   Battle Mode: Ui Row
+   ========================= */
+
+.ui-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 100px 1fr 100px 100px 100px;
+  align-items: center;
+}
+
+.ui-row__column-first {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+.ui-row__column-third {
+  text-align: right;
+}
+
+.ui-row__column-foruth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =========================
+   Status Indicator:
+   ========================= */
+
+.status-indicator {
+  position: relative;
+  width: fit-content;
+}
+
+.status-indicator img {
+  display: block;
+  width: 100%;
+  min-width: 50px;
+  max-width: 120px;
+  height: auto;
+  margin-top: 3%;
+  opacity: 0.75;
+}
+
+.status-indicator-value {
+  position: absolute;
+  color: #ffffffff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(10px, 3vw, 20px);
+  font-weight: bold;
+  pointer-events: none;
+}
+
+#my-life-arrogant {
+  margin-bottom: 0px;
+}
+
+/* =========================
+   Battle Mode: Ignorant
+   ========================= */
+
+.card-index-ignorant,
+.answer-cards-ignorant,
+.my-answered-cards,
+.my-answer-cards {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+}
+
+/* スタート前から効いていて少し分かりにくいので保留
+@media (hover: hover) {
+  .my-answer-cards img:hover {
+    opacity: 0.5;
+  }
+}
+*/
+
+.ignorant-layer .ui-row {
+  background-image: url("ignorant/Starlitsky.jpg");
+}
+
+#result-section-ignorant {
+  position: absolute;
+  background-color: #80808080;
+  grid-column: 2 / 5;
+  grid-row: 1;
+  justify-self: center;
+  align-self: center;
+  font-size: 40px;
+  top: -30px;
+  padding: 0px 20px;
+  border-radius: 12px;
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1.3;
+  box-sizing: border-box;
+  z-index: 2000;
+}
+
+/* =========================
+   Battle Mode: Unjust
+   ========================= */
+
+.unjust-layer .ui-row {
+  background-image: url("unjust/Lava2.webp");
+  background-size: cover;
+}
+
+#card-index-unjust1,
+#card-index-unjust2,
+#com-cards-container-unjust,
+#my-cards-container-unjust {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+}
+
+#unjust-img {
+  position: relative;
+  left: 30%;
+}
+
+/* スタート前から効いていて少し分かりにくいので保留
+@media (hover: hover) {
+  #my-cards-container-unjust img:hover {
+    opacity: 0.5;
+  }
+}
+*/
+
+#result-section-unjust {
+  position: absolute;
+  background-color: #80808080;
+  top: 30%;
+  padding: 0px 20px;
+  transform: translate(-90%, -40%);
+  font-size: 50px;
+  z-index: 2000;
+}
+
+/* =========================
+   Battle Mode: Arrogant
+   ========================= */
+
+#card-index-arrogant,
+.year,
+.month,
+.date,
+.classAttackCentury,
+.classAttackYear,
+.classAttackMonth,
+.classAttackDate,
+.classAttackDay,
+.week-day-index {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+}
+
+.arrogant-layer .ui-row {
+  background-image: url("arrogant/darkspace.jpg");
+  background-size: cover;
+}
+
+#month-adjust-button-section,
+#answer-reveal-delay-buttons-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.month-adjust-button,
+.answer-reveal-delay-button {
+  padding: 2px 0;
+  border-style: none;
+  border-radius: 12px;
+  width: 100px;
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+#arrogant-img {
+  position: relative;
+  left: 5%;
+}
+
+#result-section-arrogant,
+#result-indicator-section-arrogant {
+  position: absolute;
+  background-color: #80808080;
+  grid-column: 2 / 5;
+  grid-row: 1;
+  justify-self: center;
+  align-self: center;
+  font-size: 48px;
+  top: 100px;
+  padding: 0px 20px;
+  border-radius: 12px;
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1.3;
+  box-sizing: border-box;
+  z-index: 2000;
+}
+
+#result-section-arrogant {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+#battle-next-button-arrogant {
+  margin-top: 20px;
+}
+
+/* =========================
+   Reset Dialog:
+   ========================= */
+
+#reset-dialog {
+  position: absolute;
+  background-color: #888888c0;
+  color: #ffffffff;
+  border: 1px solid #888888ff;
+  text-align: center;
+  font-size: 24px;
+  height: 340px;
+  width: 300px;
+  top: 10%;
+  left: 33%;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+}
+
+/* =========================
+   Finish Game:
+   ========================= */
+
+.finish-game {
+  max-width: 480px;
+  top: 100px;
+}
+
+/* =========================
+   @media:Quick Fix
+   ========================= */
+
+@media (max-height: 1000px) {
+  body {
+    transform: scale(0.8);
+  }
+}
+
+@media (min-width: 681px) {
+  #result-section-ignorant {
+    left: 240px;
+  }
+}
+
+@media (max-width: 680px) {
+  body {
+    font-size: 12px;
+  }
+  .start-button,
+  .reset-button {
+    font-size: clamp(8px, 3vw, 12px);
+    text-align: center;
+  }
+  #ignorant-img,
+  #unjust-img,
+  #arrogant-img {
+    display: none;
+  }
+  #result-section-arrogant {
+    font-size: 24px;
+    top: 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .introduction__story {
+    position: relative;
+    min-height: 90vh;
+  }
+  #story-text-area {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .month-adjust-button-label,
+  .answer-reveal-delay-button-label {
+    font-size: 12px;
+  }
+  .status-indicator img {
+    max-width: 50px;
+  }
+  .status-indicator-value {
+    font-size: clamp(8px, 3vw, 18px);
+  }
+  #start-button,
+  #reset-button {
+    font-size: clamp(8px, 3vw, 18px);
+  }
+}
+
+/* Nest  Hub low-height smart display safety */
+@media (max-width: 1024px) and (max-height: 600px) {
+  body {
+    overflow: hidden;
+  }
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* =========================
+   End of CSS:
+   ========================= */
