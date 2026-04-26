@@ -2654,5 +2654,8 @@
     ui[mode].resetButton.onclick = resetDialog;
   });
 
-  /*** ***/
+  window.addEventListener("DOMContentLoaded", () => {
+    const el = document.querySelector("#sr-msg");
+    el.textContent = el.textContent;
+  });
 })();
