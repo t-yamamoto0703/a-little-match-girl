@@ -10,7 +10,7 @@
 
   <body>
     <!-- Screen Reader Message -->
-    <p class="sr-only">
+    <p id="sr-msg" class="sr-only" role="alert">
       This game is not compatible with screen readers. The game board is visually oriented and cannot be operated using
       assistive technologies. You may leave this page at any time.
     </p>
@@ -443,7 +443,10 @@
       <button id="return-title-button" class="button-large">Back to title</button>
     </div>
 
-    <script src="match.js"></script>
+    <script src="match.js">
+      const el = document.getElementById("sr-msg");
+      el.textContent = el.textContent;
+    </script>
   </body>
 </html>
 <!-- End of HTML -->
