@@ -137,6 +137,8 @@
     introductionSelectMatch.matchIgnorantButton.innerText = "暗黒のマッチ";
     introductionSelectMatch.matchUnjustButton.innerText = "紅蓮のマッチ";
     introductionSelectMatch.matchArrogantButton.innerText = "星屑のマッチ";
+    ignorantUI.messageSelectCardIgnorant.innerText = "画面上部に表示されたカードと同じカードを順に選んでください。";
+    unjustUI.messageSelectCardUnjust.innerText = "画面上部に表示されたカードと同じカードを順に選んでください。";
   };
 
   /************************
@@ -480,7 +482,7 @@
     BattleCommonVariables
   ************************/
 
-  const INITIAL_BATTLE_STATE = Object.freeze({
+  const INITIAL_BATTLE_STATE = {
     myLifeValue: 99999, // The Ignorant
     comLifeValue: 99999, // The Ignorant 9999だとunjust一枚目でクリアになる
     totalCount: 0,
@@ -490,7 +492,7 @@
     winFlag: false,
     loseFlag: false,
     usedCard: [],
-  });
+  };
 
   let battleState = structuredClone(INITIAL_BATTLE_STATE);
 
@@ -646,17 +648,17 @@
     BattleCommonConstant
   ************************/
 
-  const BattleMode = Object.freeze({
+  const BattleMode = {
     ignorant: "ignorant",
     unjust: "unjust",
     arrogant: "arrogant",
-  });
+  };
 
   /************************
     The Ignorant:未使用UIは要削除 drawValuesも元に戻すか共通化
   ************************/
 
-  const ignorantUI = Object.freeze({
+  const ignorantUI = {
     answerCard: document.querySelectorAll(".answer-cards-ignorant img"),
     comLifeValue: document.querySelector("#com-life-ignorant-value"), // id(#)→class化(.)
     myLifeValue: document.querySelector("#my-life-ignorant-value"), // id(#)→class化(.)
@@ -671,7 +673,8 @@
     startButton: document.querySelector(".start-button-ignorant"),
     resetButton: document.querySelector(".reset-button-ignorant"),
     damageScreen: document.querySelector("#damage-screen-ignorant"), // id(#)→class化(.)
-  });
+    messageSelectCardIgnorant: document.querySelector(".message-select-card-ignorant"),
+  };
 
   const ignorantBattle = {
     comCardValues: [],
@@ -920,6 +923,7 @@
     comCardEls: document.querySelectorAll(".com-cards-unjust img"),
     myCardsContainer: document.querySelector("#my-cards-container-unjust"), // id(#)→class化(.)
     damageScreen: document.querySelector("#damage-screen-unjust"), // id(#)→class化(.)
+    messageSelectCardUnjust: document.querySelector(".message-select-card-unjust"),
 
     //ここから分離対象
     comCardValues: [],
@@ -1248,18 +1252,18 @@
     ARROGANT_DAMAGE: 1000,
   };
 
-  const IMG_PATH_SETTINGS = Object.freeze({
+  const IMG_PATH_SETTINGS = {
     ARROGANT_IMG_DIRECTORY_PATH: "arrogant/",
     COMMON_IMG_DIRECTORY_PATH: "common/", //      BG_IMG_NORMAL: "is_safe",
     //      BG_IMG_DAMAGED: "under_fire",
     //      BG_IMG_EXT: ".jpg",
     CARD_IMG_EXT: ".png",
-  });
+  };
 
-  const CARD_PATH_SETTINGS = Object.freeze({
+  const CARD_PATH_SETTINGS = {
     RED_CARD: `${IMG_PATH_SETTINGS.COMMON_IMG_DIRECTORY_PATH}red${IMG_PATH_SETTINGS.CARD_IMG_EXT}`,
     BLUE_CARD: `${IMG_PATH_SETTINGS.COMMON_IMG_DIRECTORY_PATH}blue${IMG_PATH_SETTINGS.CARD_IMG_EXT}`,
-  });
+  };
 
   /***********************************************
       Arrogant Get Card Path
@@ -1273,15 +1277,15 @@
       Arrogant Cards container elements
     ***********************************************/
 
-  const Cards = Object.freeze({
-    question: Object.freeze({
+  const Cards = {
+    question: {
       year: document.querySelectorAll(".year-card-question"),
       month: document.querySelectorAll(".month-card-question"),
       date: document.querySelectorAll(".date-card-question"),
       day: document.querySelector(".day-card-correct-answer"),
       // back: document.querySelectorAll(".card-back-current"),
-    }),
-    calculating: Object.freeze({
+    },
+    calculating: {
       intercalary: document.querySelector("#intercalary-card-calculating"), // id(#)→class化(.)
       century: document.querySelectorAll(".century-card-calculating"),
       year: document.querySelectorAll(".year-card-calculating"),
@@ -1289,19 +1293,19 @@
       date: document.querySelectorAll(".date-card-calculating"),
       day: document.querySelectorAll(".day-card-calculating"),
       back: document.querySelectorAll(".card-back-calculating"),
-    }),
-  });
+    },
+  };
 
   /***********************************************
       Arrogant Control Cards Open
     ***********************************************/
 
-  const CARD_OFFSET = Object.freeze({
+  const CARD_OFFSET = {
     SPADE_CARD: 0, // 年
     CLOVER_CARD: 10, // 月
     DIAMOND_CARD: 20, // 日付
     HEART_WEEKDAY_CARD: 30, // 曜日
-  });
+  };
 
   // うるう年の時はうるう年カードを開く（月を問わない
   const openIntercalaryCard = () => {
@@ -1456,11 +1460,11 @@
       Arrogant Control Opacity
   ***********************************************/
 
-  const OPACITY = Object.freeze({
+  const OPACITY = {
     FULL: 1,
     MID: 0.8,
     DIM: 0.6,
-  });
+  };
 
   const setOpacityAllCards = (value) => {
     const groups = [
@@ -1497,10 +1501,10 @@
     UI Container Elements
   ***********************************************/
 
-  const UI = Object.freeze({
-    status: Object.freeze({}),
-    result: Object.freeze({}),
-  });
+  const UI = {
+    status: {},
+    result: {},
+  };
 
   /***********************************************
     Draw UI Values
@@ -1510,14 +1514,14 @@
     Variables
   ***********************************************/
 
-  const INITIAL_GAME_STATE = Object.freeze({
+  const INITIAL_GAME_STATE = {
     pause: true,
     nonstop: true,
     clean: true,
     win: false,
     lose: false,
     daySelected: false,
-  });
+  };
 
   let gameState = structuredClone(INITIAL_GAME_STATE);
 
@@ -1525,17 +1529,17 @@
     gameState = structuredClone(INITIAL_GAME_STATE);
   };
 
-  const INITIAL_HUD_STATE = Object.freeze({
+  const INITIAL_HUD_STATE = {
     remainingTime: DEFAULT_VALUE_SETTINGS.REMAINING_TIME_MAX,
     remainingQuestions: DEFAULT_VALUE_SETTINGS.NUMBER_OF_QUESTION,
     totalCount: 0,
     combo: 0,
     clean: 0,
-    misses: Object.freeze({
+    misses: {
       assist: 0,
       answer: 0,
-    }),
-  });
+    },
+  };
 
   let hudState = structuredClone(INITIAL_HUD_STATE);
 
@@ -1543,13 +1547,13 @@
     hudState = structuredClone(INITIAL_HUD_STATE);
   };
 
-  const INITIAL_CALENDAR_STATE = Object.freeze({
+  const INITIAL_CALENDAR_STATE = {
     intercalary: false,
     centuryData: null,
     yearData: "", // 各配列の要素が1桁分の数字なので一度文字列型に結合して取る
     monthData: null, // 1〜12の乱数（0〜11ではない）
     dateData: null, // 日付用の乱数
-  });
+  };
 
   let calendarState = structuredClone(INITIAL_CALENDAR_STATE);
 
@@ -1557,13 +1561,13 @@
     calendarState = structuredClone(INITIAL_CALENDAR_STATE);
   };
 
-  const INITIAL_QUESTION_STATE = Object.freeze({
+  const INITIAL_QUESTION_STATE = {
     questionSequence: [], // 出題される日付の配列
     questionIndex: 0, // 出題中の配列要素
     currentQuestionDay: null, // 現在出題されている日付（3/1起点 1〜366）
     year00Questions: [], // 00年問題を強制出題する日付の配列
     year00Index: 0, // 00年問題が強制出題されると1進む
-  });
+  };
 
   let questionState = structuredClone(INITIAL_QUESTION_STATE);
 
@@ -1571,7 +1575,7 @@
     questionState = structuredClone(INITIAL_QUESTION_STATE);
   };
 
-  const INITIAL_ANSWER_STATE = Object.freeze({
+  const INITIAL_ANSWER_STATE = {
     intercalary: 0,
     century: null,
     year: 0,
@@ -1579,9 +1583,9 @@
     date: null,
     day: null,
     intercalaryDisplay: null,
-    WEEKDAY_LABELS: Object.freeze(["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "\nTime is up"]),
+    WEEKDAY_LABELS: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "\nTime is up"],
     selectedAnswer: "Not Selected.",
-  });
+  };
 
   let Answer = structuredClone(INITIAL_ANSWER_STATE);
 
@@ -1589,11 +1593,11 @@
     Answer = structuredClone(INITIAL_ANSWER_STATE);
   };
 
-  const INITIAL_MARKING_STATE = Object.freeze({
+  const INITIAL_MARKING_STATE = {
     correct: false,
     incorrect: false,
     timeIsUp: false,
-  });
+  };
 
   let markingState = structuredClone(INITIAL_MARKING_STATE);
 
@@ -1602,14 +1606,14 @@
   };
 
   // trueが入っている要素は使用済
-  const INITIAL_USEDCARDS_STATE = Object.freeze({
+  const INITIAL_USEDCARDS_STATE = {
     intercalary: false,
     century: [],
     year: [],
     month: [],
     date: [],
     day: [],
-  });
+  };
 
   let usedCards = structuredClone(INITIAL_USEDCARDS_STATE);
 
@@ -1653,7 +1657,7 @@
     btn.onclick = () => setAdjuster(index);
   });
 
-  const MONTH_ADJUST_TABLE = Object.freeze([3, 2, 1, 0, 6, 5, 4]);
+  const MONTH_ADJUST_TABLE = [3, 2, 1, 0, 6, 5, 4];
 
   const setAdjuster = (index) => {
     monthAdjust.monthAdjustValue = MONTH_ADJUST_TABLE[index];
@@ -1679,7 +1683,7 @@
     btn.onclick = () => setAnswerReveal(index);
   });
 
-  const ANSWER_REVEAL_DELAY_TABLE = Object.freeze([10000, 5000, 3000, 1000, 500, 300, 100]);
+  const ANSWER_REVEAL_DELAY_TABLE = [10000, 5000, 3000, 1000, 500, 300, 100];
 
   const setAnswerReveal = (index) => {
     answerRevealDelay.answerRevealDelayValue = ANSWER_REVEAL_DELAY_TABLE[index];
@@ -2068,13 +2072,13 @@
     Regions:場合によってbasicSectionsへの統合を考慮
   ***********************************************/
 
-  const regions = Object.freeze({
+  const regions = {
     gameBoard: document.querySelector("#game-board"), // 未使用の可能性 残すならid(#)→class化(.)を考慮
     modalOverlay: document.querySelector("#modal-overlay"), // 各所に散っている まとめるか消すか 残すならid(#)→class化(.)を考慮
     damageScreen: document.querySelector("#damage-screen"), // 恐らく未使用 残すならid(#)→class化(.)を考慮
     uiContainer: document.querySelector(".ui-container"),
     otherGamesDialog: document.querySelector("#other-games-dialog"), // 各所に散っている まとめるか消すか 残すならid(#)→class化(.)を考慮
-  });
+  };
 
   /***********************************************
     Selection Control
@@ -2381,9 +2385,9 @@
     commonUI
   ************************/
 
-  const commonUI = Object.freeze({
+  const commonUI = {
     resetDialog: document.querySelector("#reset-dialog"), // id(#)→class化(.)を考慮
-  });
+  };
 
   const ui = {
     [BattleMode.ignorant]: ignorantUI,
