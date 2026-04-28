@@ -559,6 +559,9 @@ img {
   #story-text-area {
     font-size: 14px;
   }
+  #result-indicator-section-arrogant {
+    font-size: clamp(24px, 4vw, 36px);
+  }
 }
 
 @media (max-width: 480px) {
